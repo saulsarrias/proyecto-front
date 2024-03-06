@@ -1,0 +1,57 @@
+<div class="modal-content">
+  <!-- Login Form -->
+  <form [formGroup]="newTarea" (submit)="save()">
+    <div class="modal-header">
+      <h5 class="modal-title">Nueva Factura</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label>Parte nº:</label>
+            <select class="form-select form-control" formControlName="parte_trabajo_id" type="number" name="parte_trabajo_id" class="form-control" id="parte_trabajo_id" required>
+              <option *ngFor="let parte of partes" [value]="parte.id">{{ parte.id }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="personal_asignado">Personal Asignado</label>
+            <input formControlName="personal_asignado" type="text" name="personal_asignado" class="form-control" id="personal_asignado" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label>Horas Trabajadas</label>
+            <input formControlName="horas_trabajadas" type="text" name="horas_trabajadas" class="form-control" id="horas_trabajadas" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="personal_asignado">Precio/Hora</label>
+            <input formControlName="precio_por_hora" type="text" name="precio_por_hora" class="form-control" id="precio_por_hora" required>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="mb-3">
+            <label>Descripcion de la tarea</label>
+            <input formControlName="descripcion" type="text" name="descripcion" class="form-control" id="descripcion" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-6 text-end">
+          <button type="button" class="btn btn-danger" style="width: 90px;" (click)="closeModal()">Cancelar</button>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-success" style="width: 90px;" [disabled]="!newTarea.valid">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

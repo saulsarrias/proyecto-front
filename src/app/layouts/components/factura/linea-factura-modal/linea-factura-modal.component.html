@@ -1,0 +1,57 @@
+<div class="modal-content">
+  <!-- Login Form -->
+  <form [formGroup]="newLineaFactura" (submit)="save()">
+    <div class="modal-header">
+      <h5 class="modal-title">Nueva Linea Factura</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="mb-3">
+            <label for="concepto">Concepto</label>
+            <input formControlName="concepto" type="text" name="concepto" class="form-control" id="concepto" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="base_unitaria">Base Unitaria</label>
+            <input formControlName="base_unitaria" type="number" name="base_unitaria" class="form-control" id="base_unitaria" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="precio">Precio</label>
+            <input formControlName="precio" type="number" name="precio" class="form-control" id="precio" required min="0">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="iva">Iva</label>
+            <input formControlName="iva" type="text" name="iva" class="form-control" id="iva" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="id_factura">Factura</label>
+            <input formControlName="id_factura" type="number" name="id_factura" class="form-control" id="id_factura"  min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-6 text-end">
+          <button type="button" class="btn btn-danger" style="width: 90px;" (click)="closeModal()">Cancelar</button>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-success" style="width: 90px;" [disabled]="!newLineaFactura.valid">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

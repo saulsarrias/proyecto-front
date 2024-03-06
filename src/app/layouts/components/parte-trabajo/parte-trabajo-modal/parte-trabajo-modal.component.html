@@ -1,0 +1,43 @@
+<div class="modal-content">
+  <!-- Login Form -->
+  <form [formGroup]="newParte" (submit)="save()">
+    <div class="modal-header">
+      <h5 class="modal-title">Nueva Factura</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label>Seleccionar Obra</label>
+            <select class="form-select form-control" formControlName="id_obra" type="number" name="id_obra" class="form-control" id="id_obra" required>
+              <option *ngFor="let obra of obras" [value]="obra.id">{{ obra.id }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="id_user">Usuario</label>
+            <input formControlName="id_user" type="text" name="id_user" class="form-control" id="id_user" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="fecha_parte">Fecha</label>
+            <input formControlName="fecha_parte" type="date" name="fecha_parte" class="form-control" id="fecha_parte" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-6 text-end">
+          <button type="button" class="btn btn-danger" style="width: 90px;" (click)="closeModal()">Cancelar</button>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-success" style="width: 90px;" [disabled]="!newParte.valid">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,78 @@
+<div class="modal-content">
+  <!-- Login Form -->
+  <form [formGroup]="newFactura" (submit)="save()">
+    <div class="modal-header">
+      <h5 class="modal-title">Nueva Factura</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="id_cliente">Cliente</label>
+            <input formControlName="id_cliente" type="number" name="id_cliente" class="form-control" id="id_cliente">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="mb-3">
+            <label>Buscar Cliente</label>
+            <input type="search" [(ngModel)]="searchTerm" (input)="searchClients()" [ngModelOptions]="{standalone: true}"  (click)="searchClients()" class="form-control" >
+            <div *ngIf="showResults" class="search-results col-md-7 search-results-container">
+              <label *ngFor="let cliente of searchResults" (click)="selectClient(cliente)" class="result-item">
+                <span style="font-size: 15px;" class="">{{ cliente.nombre }} - {{ cliente.nif }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label>Seleccionar Obra</label>
+              <select class="form-select form-control" formControlName="id_obra" type="number" name="id_obra" class="form-control" id="id_obra">
+                <option *ngFor="let obra of obras" [value]="obra.id">{{ obra.id }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="fecha_emision">Fecha Emisión</label>
+            <input formControlName="fecha_emision" type="date" name="fecha_emision" class="form-control" id="fecha_emision" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="monto">Monto</label>
+            <input formControlName="monto" type="number" name="monto" class="form-control" id="monto" required min="0">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="estado_pago">Estado Pago</label>
+            <input formControlName="estado_pago" type="text" name="estado_pago" class="form-control" id="estado_pago" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="retencion">Retencion</label>
+            <input formControlName="retencion" type="number" name="retencion" class="form-control" id="retencion" required min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-6 text-end">
+            <button type="button" class="btn btn-danger" style="width: 90px;" (click)="closeModal()">Cancelar</button>
+          </div>
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-success" style="width: 90px;" [disabled]="!newFactura.valid">Guardar</button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>

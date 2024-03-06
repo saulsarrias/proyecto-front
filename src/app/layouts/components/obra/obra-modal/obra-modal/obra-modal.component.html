@@ -1,0 +1,74 @@
+<div class="modal-content">
+  <!-- Login Form -->
+  <form [formGroup]="newObra" (submit)="save()">
+    <div class="modal-header">
+      <h5 class="modal-title">Nuevo Obra</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="id_cliente">Cliente</label>
+            <input formControlName="id_cliente" type="number" name="id_cliente" class="form-control" id="id_cliente" >
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="mb-3">
+            <label>Buscar Cliente</label>
+            <input type="search" [(ngModel)]="searchTerm" (input)="searchClients()" [ngModelOptions]="{standalone: true}"  (click)="searchClients()" class="form-control">
+            <div *ngIf="showResults" class="search-results col-md-7 search-results-container">
+              <label *ngFor="let cliente of searchResults" (click)="selectClient(cliente)" class="result-item">
+                <span style="font-size: 15px;" class="">{{ cliente.nombre }} - {{ cliente.nif }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="fecha_inicio">Fecha Inicio</label>
+            <input formControlName="fecha_inicio" type="date" name="fecha_inicio" class="form-control" id="fecha_inicio" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="fecha_fin_prevista">Fecha Fin Prevista</label>
+            <input formControlName="fecha_fin_prevista" type="date" name="fecha_fin_prevista" class="form-control" id="fecha_fin_prevista" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="presupuesto">Presupuesto</label>
+            <input formControlName="presupuesto" type="text" name="presupuesto" class="form-control" id="presupuesto" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="direccion">Direccion</label>
+            <input formControlName="direccion" type="text" name="direccion" class="form-control" id="direccion" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="estado">Estado</label>
+            <input formControlName="estado" type="text" name="estado" class="form-control" id="estado" required min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-6 text-end">
+            <button type="button" class="btn btn-danger" style="width: 90px;" (click)="closeModal()">Cancelar</button>
+          </div>
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-success" style="width: 90px;" [disabled]="!newObra.valid">Guardar</button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
