@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit{
     const month = (fechaActual.getMonth() + 1).toString().padStart(2, '0');
     const day = fechaActual.getDate().toString().padStart(2, '0');
     const fechaFormateada = `${year}-${month}-${day}`;
-    this.loadingService.setLoadingState(true);
 
     this.authService.checkAuthentication().subscribe(isAuthenticated => {
       if (isAuthenticated) {
@@ -55,11 +54,8 @@ export class DashboardComponent implements OnInit{
             this.loadingService.setLoadingState(false);
           });
       } else {
-        this.authService.isAuthenticatedSubject.next(false);
-        this.loadingService.setLoadingState(false);
-        console.log('El usuario no está autenticado.');
+        window.location.reload();
         this.router.navigate(['/']);
-        this.loadingService.setLoadingState(false);
       }
     });
 
@@ -72,36 +68,6 @@ export class DashboardComponent implements OnInit{
         parte.nombre_empleado = usuario.name;
       }
     });
-  }
-
-  getPartes(){
-    this.loadingService.setLoadingState(true);
-    const fechaActual = new Date();
-    const year = fechaActual.getFullYear();
-    const month = (fechaActual.getMonth() + 1).toString().padStart(2, '0');
-    const day = fechaActual.getDate().toString().padStart(2, '0');
-    const fechaFormateada = `${year}-${month}-${day}`;
-    console.log(year+'-'+month+'-'+day);
-    this.parteService.find(fechaFormateada).subscribe({
-      next:parte =>{
-        this.partes = parte;
-        console.log(parte);
-        this.loadingService.setLoadingState(false);
-      }, error:err => {
-        this.loadingService.setLoadingState(false);
-        console.log(err);
-      }
-    })
-  }
-
-  getUsuarios(){
-    this.apiService.getUsuarios().subscribe({
-      next:response =>{
-        this.usuarios = response;
-      }, error:err => {
-        console.log(err);
-      }
-    })
   }
 
   descargarParte(parte: ParteTrabajo) {

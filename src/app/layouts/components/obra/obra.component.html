@@ -5,7 +5,7 @@
     </div>
   </div>
 <div style="margin-bottom: 50px">
-  <div class="row">
+  <div class="row" style="margin-top: 15px; margin-bottom: 15px">
     <div class="col-lg-4 mt-3" >
       <h2 style="margin-left: 50px" *ngIf="cliente !== ''">Obras de {{ cliente }}</h2>
       <h2 style="margin-left: 50px" *ngIf="cliente === ''">Obras</h2>
@@ -33,7 +33,7 @@
         <th>
           <button type="button" class="btn btn-primary" (click)="showModal()" style="padding: 5px; width: 90px">
             <i class="bi bi-building-add"></i>
-            Obra</button>
+            Nueva Obra</button>
         </th>
       </tr>
       </thead>

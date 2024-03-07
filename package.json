@@ -24,7 +24,6 @@
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.11.3",
-    "font-awesome": "^4.7.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "ngx-bootstrap": "^11.0.2",

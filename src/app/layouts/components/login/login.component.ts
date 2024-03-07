@@ -18,7 +18,6 @@ export class LoginComponent implements  OnInit{
   error = "";
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private router: Router,
     public bsModalRef: BsModalRef,
     private apiService: ApiService,
@@ -43,7 +42,10 @@ export class LoginComponent implements  OnInit{
         })
       )
       .subscribe(
-        () => this.router.navigate(['/dashboard']),
+        () => {
+          this.router.navigate(['/dashboard']);
+          this.authService.isAuthenticatedSubject.next(true);
+        },
         error => {
           console.log(error['error'].message);
           this.error = error['error'].message;
