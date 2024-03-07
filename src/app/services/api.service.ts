@@ -8,7 +8,7 @@ import {AuthService} from "./auth.service";
 })
 export class ApiService {
 
-  private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api';
   constructor(private http: HttpClient, private authService: AuthService) { }
 
 

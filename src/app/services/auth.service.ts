@@ -17,7 +17,7 @@ export class AuthService {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-      return this.http.get('http://localhost:8000/api/user', { headers: headers }).pipe(
+      return this.http.get('https://proyecto-back-tigw4.ondigitalocean.app/api/user', { headers: headers }).pipe(
         map((res: any) => {
           return true;
         }),

@@ -43,7 +43,7 @@ export class LoginComponent implements  OnInit{
       )
       .subscribe(
         () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/']);
           this.authService.isAuthenticatedSubject.next(true);
         },
         error => {

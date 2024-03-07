@@ -10,7 +10,7 @@ import {Cliente} from "../models/cliente";
 })
 export class FacturaService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api'; // URL del backend API
+  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
   private actualizacionFacturaSource = new Subject<void>();
 
   actualizacionFacturas$ = this.actualizacionFacturaSource.asObservable();
