@@ -4,7 +4,7 @@
   font-family: "Roboto Light", sans-serif;
 }
 body {
-  background-color: #f4f2ee;
+  background-color: #F3F7EC;
 }
 
 .overlay {
@@ -37,18 +37,18 @@ body {
 }
 
 .deleteButton{
-  background-color: rgb(237, 56, 56);
+  background-color: #06A012;
 }
 
 .editButton {
-  background-color: #FFD700 ;
+  background-color: #06A012;
 }
 
 .facturasButton {
   background-color: #06A012;
 }
 .obrasButton {
-  background-color: #2E86C1;
+  background-color: #06A012;
 }
 
 .iconButton svg{
@@ -111,25 +111,10 @@ body {
 
 .search:hover,
 .search:focus {
-  border: 2px solid #4A9DEC;
-  box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+  border: 2px solid #06A012;
+  box-shadow: 0px 0px 0px 7px rgb(100, 157, 100, 20%);
   background-color: white;
 }
-
-
-
-/*.editBtn svg {
-  height: 17px;
-  fill: #fff;
-  z-index: 3;
-  transition: all 0.2s;
-  transform-origin: bottom;
-  overflow: hidden;
-}
-.editBtn .bin path {
-  fill: #fff;
-}*/
-
 
 @media print {
   .table, .table__body {
@@ -213,7 +198,7 @@ main.table {
 
 table {
   width: 100%;
-  background-color: #f4f2ee
+  background-color: #E3FEF7
 }
 
 table, th, td {
@@ -226,9 +211,10 @@ thead th {
   position: sticky;
   top: 0;
   left: 0;
-  background-color: #DEDEDE;
+  background-color: #135D66;
   cursor: pointer;
   text-transform: capitalize;
+  color: white;
 }
 
 tbody tr:nth-child(even) {
@@ -256,8 +242,10 @@ tbody tr:hover {
 }
 
 thead th:hover {
-  color: #4E4E4E;
+  color: #B3E2A7;
 }
+
+
 
 .button {
   background-color: #099;
@@ -274,9 +262,7 @@ thead th:hover {
   transition: max-width 0.5s;
 }
 
-.button:hover {
-  max-width: 300px;
-}
+
 
 .icon {
   font-size: 16px;
@@ -343,3 +329,33 @@ thead th:hover {
   }
 }
 
+.secondary {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btnColor {
+  background-color: #06A012;
+  color: white;
+}
+
+ngb-pagination .page-item.active .page-link {
+  background-color: #06A012;
+  border-color: #06A012;
+  color: white;
+}
+
+ngb-pagination  .page-link {
+  color: black;
+}

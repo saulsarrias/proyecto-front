@@ -37,6 +37,7 @@ import {ObraService} from "../../services/obra.service";
 import {ParteTrabajoService} from "../../services/parte-trabajo.service";
 import {SortingService} from "../../services/sorting.service";
 import {TareaService} from "../../services/tarea.service";
+import {ExcelService} from "../../services/excel.service";
 
 
 
@@ -83,7 +84,8 @@ import {TareaService} from "../../services/tarea.service";
     ObraService,
     ParteTrabajoService,
     SortingService,
-    TareaService
+    TareaService,
+    ExcelService
   ]
 })
 export class DefaultModule { }

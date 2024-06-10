@@ -4,25 +4,25 @@
   border: 1px solid darkgray;
   border-radius: 5px;
   padding: 5px;
-  z-index: 1000; /* Asegura que el div esté sobre otros elementos */
+  z-index: 1000;
 }
 
 .result-item {
   display: block;
   cursor: pointer;
   padding: 5px;
-  border-bottom: 1px solid darkgray; /* Borde inferior entre elementos */
+  border-bottom: 1px solid darkgray;
 }
 
 .result-item:last-child {
-  border-bottom: none; /* Elimina el borde inferior del último elemento */
+  border-bottom: none;
 }
 
 .result-item:hover {
-  background-color: lightgray; /* Cambia el color de fondo al pasar el ratón */
+  background-color: lightgray;
 }
 
 .search-results-container {
-  max-height: 200px; /* Altura máxima de la lista */
-  overflow-y: auto; /* Habilitar desplazamiento vertical */
+  max-height: 200px;
+  overflow-y: auto;
 }

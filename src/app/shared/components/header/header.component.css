@@ -99,3 +99,7 @@
 .full-rounded {
   border-radius: 2em;
 }
+
+.nav-link {
+  color: white;
+}

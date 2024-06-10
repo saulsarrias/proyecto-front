@@ -3,7 +3,7 @@
         <span class="visually-hidden">Cargando...</span>
     </div>
 </div>
-<div class="col-lg-12" style="margin-bottom: 35px">
+<div class="col-lg-12" style="margin-bottom: 35px; min-height: 700px">
     <div class="row" style="margin-top: 15px; margin-bottom: 15px">
         <div class="col-lg-4 mt-3" >
             <h2 style="margin-left: 50px" >Partes</h2>
@@ -27,9 +27,9 @@
                 <th (click)="sortingService.sortBy('id_obra')">Obra <span [innerHTML]="sortingService.getSortIcon('id_obra')"></span></th>
                 <th (click)="sortingService.sortBy('fecha_parte')">Fecha <span [innerHTML]="sortingService.getSortIcon('fecha_parte')"></span></th>
                 <th>
-                    <button type="button" class="btn btn-primary"  style="padding: 5px; width: 150px" (click)="showParteModal()">
-                        <i class="bi bi-file-earmark-text"></i>
-                        Nuevo Parte</button>
+                    <button type="button" class="btn btnColor"  style="padding: 5px; width: 140px" (click)="showParteModal()">
+                        <i class="bi bi bi-file-earmark-plus"></i>
+                         Parte</button>
                 </th>
             </tr>
             </thead>
@@ -51,7 +51,7 @@
                     <td>{{ parte.id }}</td>
                     <td>{{ parte.id_user }}</td>
                     <td>{{ parte.id_obra }}</td>
-                    <td>{{ parte.fecha_parte }}</td>
+                    <td>{{ parte.fecha_parte | date:'dd/MM/yyyy' }}</td>
                     <td>
                         <div style="display: flex">
                             <button class="iconButton downloadButton" (click)="descargarParte(parte)">
@@ -89,11 +89,11 @@
                                 <tr>
                                     <th>Concepto</th>
                                     <th>Base unitaria</th>
-                                    <th>Iva</th>
+                                    <th>Horas Trabajadas</th>
                                     <th>Precio</th>
                                     <th>Total</th>
                                     <th>
-                                        <button type="button" class="btn btn-primary" style="padding: 5px; width: 150px" (click)="showTareaModal(parte.id)"><i class="bi bi-file-earmark-text"></i>Nueva Tarea</button>
+                                        <button type="button" class="btn btnColor" style="padding: 5px; width: 150px" (click)="showTareaModal(parte.id)"><i class="bi bi bi-file-earmark-plus"></i> Tarea</button>
                                     </th>
                                 </tr>
                                 </thead>
@@ -101,9 +101,9 @@
                                 <tr *ngFor="let tarea of tareas">
                                     <td>{{ tarea.descripcion }}</td>
                                     <td>{{ tarea.personal_asignado }}</td>
-                                    <td>{{ tarea.horas_trabajadas }}</td>
-                                    <td>{{ tarea.precio_por_hora }}</td>
-                                    <td>{{ tarea.horas_trabajadas * tarea.precio_por_hora }}</td>
+                                    <td>{{ tarea.horas_trabajadas | number:'1.0-2' }}</td>
+                                    <td>{{ tarea.precio_por_hora | number:'1.0-2'}}€</td>
+                                    <td>{{ tarea.horas_trabajadas * tarea.precio_por_hora }}€</td>
                                     <td>
                                         <div style="display: flex">
                                             <button class="iconButton editButton" (click)="showTareaModalUpdate(tarea)">

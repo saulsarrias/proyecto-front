@@ -1,25 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {Factura} from "../../../models/factura";
-import {LineaFactura} from "../../../models/linea-factura";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-import {Cliente} from "../../../models/cliente";
 import {Obra} from "../../../models/obra";
 import {ParteTrabajo} from "../../../models/parte-trabajo";
 import {Tarea} from "../../../models/tarea";
 import {LoadingService} from "../../../services/loading.service";
 import {AuthService} from "../../../services/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FacturaService} from "../../../services/factura.service";
+import {Router} from "@angular/router";
 import {SortingService} from "../../../services/sorting.service";
-import {LineaFacturaService} from "../../../services/linea-factura.service";
-import {ClienteService} from "../../../services/cliente.service";
-import {forkJoin} from "rxjs";
 import {ParteTrabajoService} from "../../../services/parte-trabajo.service";
 import {TareaService} from "../../../services/tarea.service";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import {TareaModalComponent} from "./tarea/tarea-modal/tarea-modal.component";
 import {ParteTrabajoModalComponent} from "./parte-trabajo-modal/parte-trabajo-modal.component";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-parte-trabajo',
@@ -44,11 +38,13 @@ export class ParteTrabajoComponent implements OnInit{
       public sortingService: SortingService,
       private modalService: BsModalService,
       private parteService: ParteTrabajoService,
-      private tareaService: TareaService
+      private tareaService: TareaService,
+      private titleService: Title
   ) {
   }
 
   ngOnInit() {
+    this.setTitle("Partes");
     this.loadingService.setLoadingState(true);
     this.authService.checkAuthentication().subscribe(isAuthenticated => {
       if (isAuthenticated) {
@@ -63,6 +59,10 @@ export class ParteTrabajoComponent implements OnInit{
         this.router.navigate(['/']);
       }
     });
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   public getPartes() {
@@ -175,7 +175,6 @@ export class ParteTrabajoComponent implements OnInit{
       let id = 1;
       tareas.forEach((tarea: Tarea) => {
         total = total + (tarea.precio_por_hora * tarea.horas_trabajadas)
-        console.log(total);
         const rowData = [
           id.toString(),
           tarea.descripcion,

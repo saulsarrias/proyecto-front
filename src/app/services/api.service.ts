@@ -7,14 +7,20 @@ import {AuthService} from "./auth.service";
   providedIn: 'root'
 })
 export class ApiService {
-
-  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api';
+  private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api';
   constructor(private http: HttpClient, private authService: AuthService) { }
-
-
   headers = new HttpHeaders({
     'Authorization': `Bearer ${localStorage.getItem('token')}`
   });
+
+  /*headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Credentials': 'true'
+  });*/
 
   login(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data /*, { withCredentials: true }*/);

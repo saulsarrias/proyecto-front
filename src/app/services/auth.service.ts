@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {BehaviorSubject, catchError, map, Observable, of, throwError} from 'rxjs';
-import {Emitters} from "../emitters/emitter";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private apiUrl = 'http://localhost:8000/api/user';
+  //private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api/user';
 
   constructor(private http: HttpClient) { }
   public isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
@@ -15,9 +17,9 @@ export class AuthService {
     const token = localStorage.getItem('token');
     if (token) {
       const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
-      return this.http.get('https://proyecto-back-tigw4.ondigitalocean.app/api/user', { headers: headers }).pipe(
+      return this.http.get(this.apiUrl, { headers: headers }).pipe(
         map((res: any) => {
           return true;
         }),
@@ -26,28 +28,10 @@ export class AuthService {
         })
       );
     } else {
-      // Manejar el caso en que el token no esté presente
       console.error('No se encontró el token en el Local Storage');
-      // Puedes manejar esto retornando un observable de error o lanzando una excepción
       return throwError('No se encontró el token en el Local Storage');
     }
   }
-
-  /*checkAuthentication(): Observable<boolean> {
-    return new Observable<boolean>((observer) => {
-      this.http.get('http://localhost:8000/api/user', { withCredentials: true })
-        .subscribe(
-          (res: any) => {
-            Emitters.authEmitter.emit(true);
-            observer.next(true);
-          },
-          err => {
-            Emitters.authEmitter.emit(false);
-            observer.next(false);
-          }
-        );
-    });
-  }*/
 
   isAuthenticated(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();

@@ -4,7 +4,6 @@ import {ParteTrabajoService} from "../../../services/parte-trabajo.service";
 import {LoadingService} from "../../../services/loading.service";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
-import {getDate} from "ngx-bootstrap/chronos/utils/date-getters";
 import {ApiService} from "../../../services/api.service";
 import {forkJoin} from "rxjs";
 import {Usuario} from "../../../models/usuario";
@@ -12,6 +11,7 @@ import jsPDF from "jspdf";
 import {Tarea} from "../../../models/tarea";
 import autoTable from "jspdf-autotable";
 import {TareaService} from "../../../services/tarea.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +31,8 @@ export class DashboardComponent implements OnInit{
     private authService: AuthService,
     private router: Router,
     private apiService: ApiService,
-    private tareaService: TareaService
+    private tareaService: TareaService,
+    private titleService: Title
   ) {
   }
 
@@ -42,6 +43,7 @@ export class DashboardComponent implements OnInit{
     const day = fechaActual.getDate().toString().padStart(2, '0');
     const fechaFormateada = `${year}-${month}-${day}`;
 
+    this.setTitle("Inicio");
     this.authService.checkAuthentication().subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.authService.isAuthenticatedSubject.next(true);
@@ -59,6 +61,10 @@ export class DashboardComponent implements OnInit{
       }
     });
 
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   addEmpleado(){

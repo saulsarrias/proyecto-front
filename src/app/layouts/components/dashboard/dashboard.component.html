@@ -25,7 +25,7 @@
             <div class="card" *ngFor="let parte of partes | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter:searchText">
                 <p class="card-text ps-2 pt-2"><i class="bi bi-building me-2"></i>Obra nº: {{ parte.id_obra }}</p>
                 <p class="card-text ps-2"><i class="bi bi-person-vcard me-2"></i>Empleado: {{ parte.nombre_empleado }}</p>
-                <p class="card-text ps-2"><i class="bi bi-calendar3 me-2"></i>Fecha: {{ parte.fecha_parte }}</p>
+                <p class="card-text ps-2"><i class="bi bi-calendar3 me-2"></i>Fecha: {{ parte.fecha_parte | date:'dd/MM/yyyy' }}</p>
 
               <button class="download-button" style="margin-left: 13%; margin-top: 10px" (click)="descargarParte(parte)">
                 <div class="docs"><svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" height="20" width="20" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line y2="13" x2="8" y1="13" x1="16"></line><line y2="17" x2="8" y1="17" x1="16"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Descargar</div>
@@ -38,7 +38,9 @@
     </div>
 </div>
 <ng-template #sinPartes>
-  <div class="alert alert-warning" role="alert">
-    Hoy no se han hecho partes de trabajo.
+  <div style="height: 700px">
+    <div class="alert alert-warning" role="alert">
+      Hoy no se han hecho partes de trabajo.
+    </div>
   </div>
 </ng-template>

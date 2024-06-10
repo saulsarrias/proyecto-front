@@ -8,9 +8,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from "ngx-bootstrap/modal";
-import {AuthService} from "./services/auth.service";
-import {ClienteService} from "./services/cliente.service";
-import {LoadingService} from "./services/loading.service";
 import {DefaultModule} from "./layouts/default/default.module";
 
 

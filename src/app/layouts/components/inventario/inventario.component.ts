@@ -3,14 +3,13 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 import {LoadingService} from "../../../services/loading.service";
 import {AuthService} from "../../../services/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FacturaService} from "../../../services/factura.service";
+import {Router} from "@angular/router";
 import {SortingService} from "../../../services/sorting.service";
-import {LineaFacturaService} from "../../../services/linea-factura.service";
-import {ClienteService} from "../../../services/cliente.service";
 import {Inventario} from "../../../models/inventario";
 import {InventarioService} from "../../../services/inventario.service";
 import {InventarioModalComponent} from "./inventario-modal/inventario-modal.component";
+import { Title } from '@angular/platform-browser';
+import {ExcelService} from "../../../services/excel.service";
 
 
 @Component({
@@ -32,10 +31,13 @@ export class InventarioComponent implements OnInit{
       private router: Router,
       public sortingService: SortingService,
       private modalService: BsModalService,
-      private inventarioService: InventarioService
+      private inventarioService: InventarioService,
+      private titleService: Title,
+      private excelService: ExcelService
   ) {
   }
   ngOnInit(): void {
+    this.setTitle("Inventario");
     this.loadingService.setLoadingState(true);
     this.authService.checkAuthentication().subscribe(isAuthenticated => {
       if (isAuthenticated) {
@@ -52,6 +54,14 @@ export class InventarioComponent implements OnInit{
     });
   }
 
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
+  exportToExcel(): void {
+    this.excelService.exportAsExcelFile(this.materiales, 'Inventario');
+  }
+
   showModalUpdate(material: Inventario){
     this.bsModalRef = this.modalService.show(InventarioModalComponent, {
       initialState: {
@@ -60,6 +70,7 @@ export class InventarioComponent implements OnInit{
       }
     });
   }
+
   showModal(){
     this.bsModalRef = this.modalService.show(InventarioModalComponent, {
       initialState: {

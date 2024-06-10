@@ -4,21 +4,26 @@
         <span class="visually-hidden">Cargando...</span>
     </div>
 </div>
-<div class="row" style="margin-top: 35px">
+<div class="row" style="margin-top: 15px; margin-bottom: 15px">
     <div class="col-lg-4 mt-3" >
         <h2 style="margin-left: 50px">Inventario</h2>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-2">
         <nav class="navbar">
             <input class="search " type="text" name="filter" [(ngModel)]="searchText" placeholder="Busqueda...">
         </nav>
     </div>
+  <div class="col-lg-2">
+    <nav class="navbar">
+      <button class="btn btnColor" name="descargar" (click)="exportToExcel()">Descargar Excel</button>
+    </nav>
+  </div>
     <div class="col-lg-4 text-center" style="margin-top: 8px">
         <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="materiales.length"></ngb-pagination>
     </div>
 </div>
 
-<section class=" table__body " style="margin-top: 10px; margin-bottom: 50px">
+<section class="table__body" style="margin-top: 10px; margin-bottom: 50px">
     <table>
         <thead>
         <tr>
@@ -26,9 +31,9 @@
             <th (click)="sortingService.sortBy('descripcion')">Descripcion <span [innerHTML]="sortingService.getSortIcon('descripcion')"></span></th>
             <th (click)="sortingService.sortBy('cantidad')">Cantidad <span [innerHTML]="sortingService.getSortIcon('cantidad')"></span></th>
             <th>
-                <button type="button" class="btn btn-primary" (click)="showModal()" style="padding: 5px; width: 90px">
+                <button type="button" class="btn btnColor" (click)="showModal()" style="padding: 5px; width: 90px">
                     <i class="bi bi-patch-plus"></i>
-                    Nuevo Material</button>
+                     Material</button>
             </th>
         </tr>
         </thead>

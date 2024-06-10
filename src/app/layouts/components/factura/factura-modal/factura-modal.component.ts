@@ -3,7 +3,7 @@ import {Cliente} from "../../../../models/cliente";
 import {Factura} from "../../../../models/factura";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
-import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {BsModalRef} from "ngx-bootstrap/modal";
 
 import {ObraService} from "../../../../services/obra.service";
 import {Obra} from "../../../../models/obra";
@@ -29,7 +29,6 @@ export class FacturaModalComponent implements OnInit{
     private formBuilder: FormBuilder,
     public bsModalRef: BsModalRef,
     private obraService: ObraService,
-    private elementRef: ElementRef,
     private facturaService: FacturaService,
     private clienteService: ClienteService
   ) {
@@ -45,7 +44,6 @@ export class FacturaModalComponent implements OnInit{
 
   ngOnInit(): void {
     this.getAllClientes();
-    console.log(this.clientes);
     if (this.factura) {
       this.newFactura.patchValue({
         id_cliente: this.factura.id_cliente,
@@ -70,7 +68,6 @@ export class FacturaModalComponent implements OnInit{
   }
 
   searchClients() {
-    console.log("buscando");
     if (this.searchTerm.length >= 0) {
       this.searchResults = this.clientes.filter(cliente => {
         return (
@@ -83,8 +80,6 @@ export class FacturaModalComponent implements OnInit{
       this.searchResults = [];
       this.showResults = false;
     }
-    console.log(this.showResults);
-    console.log(this.searchResults);
   }
 
   closeModal(): void{
@@ -110,7 +105,6 @@ export class FacturaModalComponent implements OnInit{
       if(this.isUpdate){
         this.facturaService.update(this.factura.id, factura).subscribe(
           response =>{
-
             this.facturaService.actualizarFactura();
             this.closeModal();
           },
@@ -121,7 +115,6 @@ export class FacturaModalComponent implements OnInit{
       } else{
         this.facturaService.save(factura).subscribe(
           response => {
-
             this.facturaService.actualizarFactura();
             this.closeModal();
           },
@@ -140,8 +133,6 @@ export class FacturaModalComponent implements OnInit{
       .subscribe(
         clientes => {
           this.clientes = clientes;
-
-          console.log(clientes);
         },
         error => {
           console.error('Error al obtener clientes:', error);

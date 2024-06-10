@@ -9,11 +9,12 @@ import {AuthService} from "./auth.service";
   providedIn: 'root'
 })
 export class ParteTrabajoService {
-  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
+  private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
   private actualizacionParteSource = new Subject<void>();
 
   headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
   });
 
   actualizacionPartes$ = this.actualizacionParteSource.asObservable();

@@ -5,8 +5,8 @@ import {Emitters} from "../../../emitters/emitter";
 import {LoginComponent} from "../../../layouts/components/login/login.component";
 import {RegisterComponent} from "../../../layouts/components/register/register.component";
 import {ApiService} from "../../../services/api.service";
-import {Router} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -29,26 +29,21 @@ export class HeaderComponent implements OnInit{
     console.log(this.authenticated);
     this.authService.isAuthenticated().subscribe(authenticated => {
       this.authenticated = authenticated;
-      console.log(this.authenticated);
     });
+  }
 
-    /*this.authService.checkAuthentication().subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-        console.log('El usuario está autenticado.');
-        this.authenticated = true;
-      } else {
-        console.log('El usuario no está autenticado.');
-        this.authenticated = false;
-      }
-    })*/
+  reloadPage(route: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([route]);
+    });
   }
 
   logout() : void{
     this.apiService.logout()
       .subscribe({
         next:res => {
-          this.authService.logout();
           this.authenticated = false;
+          this.authService.logout();
           this.router.navigate(['/'])
         }
       });
@@ -62,3 +57,5 @@ export class HeaderComponent implements OnInit{
     this.bsModalRef = this.modalService.show(RegisterComponent);
   }
 }
+
+

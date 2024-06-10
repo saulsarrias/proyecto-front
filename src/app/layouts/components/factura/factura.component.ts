@@ -16,6 +16,7 @@ import jsPDF from 'jspdf';
 import autoTable  from 'jspdf-autotable';
 import {LineaFacturaModalComponent} from "./linea-factura-modal/linea-factura-modal.component";
 import {forkJoin} from "rxjs";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-factura',
@@ -23,9 +24,8 @@ import {forkJoin} from "rxjs";
   styleUrls: ['./factura.component.css']
 })
 export class FacturaComponent implements OnInit {
-
+    total: number = 0;
     facturas: Factura[] = [];
-    allFacturas: Factura [] = [];
     lineasFactura: LineaFactura[] = [];
     bsModalRef!: BsModalRef;
     facturasCliente: Factura[] = [];
@@ -46,11 +46,13 @@ export class FacturaComponent implements OnInit {
         private lineaFacturaService: LineaFacturaService,
         private activatedRoute: ActivatedRoute,
         private modalService: BsModalService,
-        private clienteService: ClienteService
+        private clienteService: ClienteService,
+        private titleService: Title
     ) {
     }
 
     ngOnInit(): void {
+      this.setTitle("Facturas");
         this.loadingService.setLoadingState(true);
         this.authService.checkAuthentication().subscribe(isAuthenticated => {
             if (isAuthenticated) {
@@ -85,7 +87,12 @@ export class FacturaComponent implements OnInit {
         });
     }
 
-    public getFacturas() {
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
+
+  public getFacturas() {
         this.loadingService.setLoadingState(true);
         this.facturaService.getAll().subscribe({
             next: factura => {
@@ -97,31 +104,6 @@ export class FacturaComponent implements OnInit {
             }
         });
     }
-
-    /*getAllClientes(): void {
-        this.clienteService.getAllClientes().subscribe(
-            clientes => {
-                this.clientes = clientes;
-                console.log(clientes); // Aquí puedes manipular los clientes recibidos
-            },
-            error => {
-                console.error('Error al obtener clientes:', error);
-            }
-        );
-    }
-
-    public getLineasFacturas() {
-        this.loadingService.setLoadingState(true);
-        this.lineaFacturaService.getLineas().subscribe({
-            next: linea => {
-                this.lineasFactura = linea;
-                //console.log(this.lineasFactura);
-            }, error: error => {
-                console.log(error);
-            }
-        });
-        this.loadingService.setLoadingState(false);
-    }*/
 
     public getLineasFacturasById(id: number) {
         this.lineaFacturaService.getById(id).subscribe({
@@ -171,7 +153,6 @@ export class FacturaComponent implements OnInit {
         const options = {year: 'numeric', month: '2-digit', day: 'numeric'};
         // @ts-ignore
         const fechaFormateada = fechaEmision.toLocaleDateString('es-ES', options);
-        console.log(factura);
         this.lineaFacturaService.getById(factura.id).subscribe((lineasFactura: any[]) => {
             doc.setFontSize(16);
             doc.text("ESTRUCTURAS Y", 15, 10);
@@ -187,11 +168,10 @@ export class FacturaComponent implements OnInit {
             doc.text("Fecha: " + fechaFormateada.toString(), 15, 75);
             const headers = [['ID', 'Concepto', 'Base Unitaria', 'Precio', 'Importe']];
             const data: any[][] = [];
-            let total = 0;
+
             let id = 1;
             lineasFactura.forEach((linea: any) => {
-                total = total + (linea.base_unitaria * linea.precio)
-                console.log(total);
+                this.total = this.total + (linea.base_unitaria * linea.precio)
                 const rowData = [
                     id.toString(),
                     linea.concepto,
@@ -202,8 +182,8 @@ export class FacturaComponent implements OnInit {
                 id = id + 1;
                 data.push(rowData);
             });
-            data.push(['', '', '', 'IVA ' + factura.retencion + '%', (total * 0.21).toFixed(2) + '€']);
-            data.push(['', '', '', 'Total', (total + (total * 0.21)).toFixed(2) + '€']);
+            data.push(['', '', '', 'IVA ' + factura.retencion + '%', (this.total * 0.21).toFixed(2) + '€']);
+            data.push(['', '', '', 'Total', (this.total + (this.total * 0.21)).toFixed(2) + '€']);
             autoTable(doc, {
                 head: headers,
                 body: data,

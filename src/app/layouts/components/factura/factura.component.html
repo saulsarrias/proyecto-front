@@ -9,9 +9,18 @@
       <h2 style="margin-left: 50px" *ngIf="cliente !== ''">Facturas de {{ cliente }}</h2>
       <h2 style="margin-left: 50px" *ngIf="cliente === ''">Facturas</h2>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-2">
       <nav class="navbar">
-        <input class="search " type="text" name="filter" [(ngModel)]="searchText" placeholder="Busqueda...">
+        <input class="search" type="text" name="filter" [(ngModel)]="searchText" placeholder="Busqueda...">
+      </nav>
+    </div>
+    <div class="col-lg-2">
+      <nav class="navbar">
+        <select class="form-control" [(ngModel)]="searchText" style="width: 150px">
+          <option value="" selected>Mostrar todas</option>
+          <option value="Pagada">Pagadas</option>
+          <option value="Pendiente">Pendientes</option>
+        </select>
       </nav>
     </div>
     <div class="col-lg-4 text-center" style="margin-top: 8px">
@@ -29,9 +38,9 @@
         <th (click)="sortingService.sortBy('monto')">Monto <span [innerHTML]="sortingService.getSortIcon('monto')"></span></th>
         <th (click)="sortingService.sortBy('estado_pago')">Estado Pago <span [innerHTML]="sortingService.getSortIcon('estado_pago')"></span></th>
         <th>
-          <button type="button" class="btn btn-primary"  style="padding: 5px; width: 150px" (click)="showModal()">
-            <i class="bi bi-file-earmark-text"></i>
-            Nueva Factura</button>
+          <button type="button" class="btn btnColor"  style="padding: 5px; width: 140px;" (click)="showModal()">
+            <i class="bi bi-file-earmark-plus" style="color: white"></i>
+             Factura</button>
         </th>
       </tr>
       </thead>
@@ -47,13 +56,13 @@
               <path fill-rule="evenodd" d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5"/>
               </svg>
             </span>
-            <span class="text">Ver detalles</span>
+
           </a>
           </td>
           <td>{{ factura.id }}</td>
           <td>{{ factura.nombre_cliente }}</td>
           <td>{{ factura.id_obra }}</td>
-          <td>{{ factura.monto }}</td>
+          <td>{{ factura.monto | number:'1.0-2' }}€</td>
           <td>{{ factura.estado_pago }}</td>
           <td>
             <div style="display: flex">
@@ -96,7 +105,7 @@
                   <th>Precio</th>
                   <th>Total</th>
                   <th>
-                    <button type="button" class="btn btn-primary" style="padding: 5px; width: 150px" (click)="showLineaFacturaModal(factura.id)"><i class="bi bi-file-earmark-text"></i>Nueva Linea</button>
+                    <button type="button" class="btn btnColor" style="padding: 5px; width: 100px" (click)="showLineaFacturaModal(factura.id)"><i class="bi bi-file-earmark-plus" style="color: white"></i> Linea</button>
                   </th>
                 </tr>
                 </thead>
@@ -104,9 +113,9 @@
                 <tr *ngFor="let linea of lineasFactura">
                   <td>{{ linea.concepto }}</td>
                   <td>{{ linea.base_unitaria }}</td>
-                  <td>{{ linea.iva }}</td>
-                  <td>{{ linea.precio }}</td>
-                  <td>{{ linea.base_unitaria * linea.precio }}</td>
+                  <td>{{ linea.iva | number:'1.0-2' }}%</td>
+                  <td>{{ linea.precio| number:'1.0-2' }}€</td>
+                  <td>{{ linea.base_unitaria * linea.precio }}€</td>
                   <td>
                     <div style="display: flex">
                       <button class="iconButton editButton" (click)="showLineaFacturaModalUpdate(linea)">

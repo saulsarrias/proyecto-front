@@ -7,8 +7,8 @@ import {Obra} from "../models/obra";
   providedIn: 'root'
 })
 export class ObraService {
-
-  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
+  private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
   private actualizacionObrasSource = new Subject<void>();
 
   actualizacionObras$ = this.actualizacionObrasSource.asObservable();

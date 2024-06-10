@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {ApiService} from "../../../services/api.service";
-import {Emitters} from "../../../emitters/emitter";
 import {AuthService} from "../../../services/auth.service";
 import {tap} from "rxjs";
 
@@ -43,8 +41,10 @@ export class LoginComponent implements  OnInit{
       )
       .subscribe(
         () => {
-          this.router.navigate(['/']);
           this.authService.isAuthenticatedSubject.next(true);
+
+          this.router.navigate(['/']);
+
         },
         error => {
           console.log(error['error'].message);

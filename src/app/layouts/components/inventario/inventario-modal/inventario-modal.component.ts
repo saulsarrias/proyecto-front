@@ -48,7 +48,6 @@ export class InventarioModalComponent implements OnInit{
       if(this.isUpdate){
         this.inventarioService.update(this.material.id, material).subscribe({
           next:response => {
-          console.log('Cliente guardado exitosamente:', response);
           this.inventarioService.actualizarInventario();
           this.closeModal();
         },
@@ -59,7 +58,6 @@ export class InventarioModalComponent implements OnInit{
       } else{
         this.inventarioService.save(material).subscribe({
           next:response => {
-          console.log('Cliente guardado exitosamente:', response);
           this.inventarioService.actualizarInventario();
           this.closeModal();
         },

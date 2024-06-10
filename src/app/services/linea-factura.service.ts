@@ -8,8 +8,8 @@ import {LineaFactura} from "../models/linea-factura";
   providedIn: 'root'
 })
 export class LineaFacturaService {
-
-  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
+  private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
   private actualizacionLineaFacturaSource = new Subject<void>();
 
   actualizacionLineaFactura$ = this.actualizacionLineaFacturaSource.asObservable();

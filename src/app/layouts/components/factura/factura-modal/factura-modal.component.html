@@ -1,5 +1,4 @@
 <div class="modal-content">
-  <!-- Login Form -->
   <form [formGroup]="newFactura" (submit)="save()">
     <div class="modal-header">
       <h5 class="modal-title">Nueva Factura</h5>
@@ -51,7 +50,10 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label for="estado_pago">Estado Pago</label>
-            <input formControlName="estado_pago" type="text" name="estado_pago" class="form-control" id="estado_pago" required>
+            <select formControlName="estado_pago" name="estado_pago" class="form-control" id="estado_pago" required>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Pagada">Pagada</option>
+            </select>
           </div>
         </div>
       </div>
@@ -67,10 +69,10 @@
       <div class="modal-footer">
         <div class="row">
           <div class="col-md-6 text-end">
-            <button type="button" class="btn btn-danger" style="width: 90px;" (click)="closeModal()">Cancelar</button>
+            <button type="submit" class="btn btn-success" style="width: 90px;" [disabled]="!newFactura.valid">Guardar</button>
           </div>
           <div class="col-md-6">
-            <button type="submit" class="btn btn-success" style="width: 90px;" [disabled]="!newFactura.valid">Guardar</button>
+            <button type="button" class="btn btn-danger" style="width: 90px;" (click)="closeModal()">Cancelar</button>
           </div>
         </div>
       </div>

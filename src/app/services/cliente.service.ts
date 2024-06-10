@@ -7,8 +7,8 @@ import {Cliente} from "../models/cliente";
   providedIn: 'root'
 })
 export class ClienteService {
-
-  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
+  private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
   private actualizacionClienteSource = new Subject<void>();
 
   actualizacionCliente$ = this.actualizacionClienteSource.asObservable();

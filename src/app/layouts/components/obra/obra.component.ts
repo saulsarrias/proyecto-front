@@ -11,7 +11,7 @@ import {Cliente} from "../../../models/cliente";
 import {ClienteService} from "../../../services/cliente.service";
 import {forkJoin} from "rxjs";
 import {ClienteModalComponent} from "../cliente/cliente-modal/cliente-modal.component";
-import {Factura} from "../../../models/factura";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-obra',
@@ -36,10 +36,12 @@ export class ObraComponent implements OnInit{
     private obraService: ObraService,
     public sortingService: SortingService,
     private clienteService: ClienteService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title
   ) {
   }
   ngOnInit(): void {
+    this.setTitle("Obras");
     this.loadingService.setLoadingState(true);
     this.authService.checkAuthentication().subscribe(isAuthenticated => {
       if (isAuthenticated) {
@@ -49,6 +51,7 @@ export class ObraComponent implements OnInit{
 
           this.obraService.actualizacionObras$.subscribe(() => {
             this.getAll();
+
           });
 
           if (obrasCliente != null) {
@@ -62,8 +65,9 @@ export class ObraComponent implements OnInit{
                   this.obras = obras;
                   this.clientes = clientes;
                   this.addCliente();
-                  this.loadingService.setLoadingState(false);
+
                 });
+
           }
         });
       } else {
@@ -73,6 +77,10 @@ export class ObraComponent implements OnInit{
     });
   }
 
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
   getAll(){
     this.loadingService.setLoadingState(true);
     this.obraService.getAll()
@@ -80,7 +88,6 @@ export class ObraComponent implements OnInit{
         next:obras => {
       this.obras = obras;
       this.loadingService.setLoadingState(false);
-      console.log(obras); // Aquí puedes manipular los clientes recibidos
     },
     error:error => {
       this.loadingService.setLoadingState(false);
@@ -92,7 +99,6 @@ export class ObraComponent implements OnInit{
   delete(id: number){
     this.obraService.delete(id).subscribe(
       response => {
-        console.log('Obra eliminado exitosamente:', response);
         this.getAll();
       },
       error => {
@@ -123,29 +129,12 @@ export class ObraComponent implements OnInit{
   getClienteById(id: number){
     this.clienteService.find(id).subscribe({
       next:cliente =>{
-        console.log(cliente);
         this.showModalInfo(cliente);
       },
       error:error =>{
         console.log(error);
       }
     });
-  }
-
-  getAllClientes() {
-    this.loadingService.setLoadingState(true);
-    this.clienteService.getAllClientes()
-      .subscribe(
-        clientes => {
-          this.clientes = clientes;
-          this.loadingService.setLoadingState(false);
-          console.log(clientes);
-        },
-        error => {
-          this.loadingService.setLoadingState(false);
-          console.error('Error al obtener clientes:', error);
-        }
-      );
   }
 
  showModalInfo(cliente: Cliente) {
@@ -163,7 +152,7 @@ export class ObraComponent implements OnInit{
         obra.nombre_cliente = cliente.nombre;
       }
     });
-    console.log(this.obras);
+    this.loadingService.setLoadingState(false);
   }
 
 }

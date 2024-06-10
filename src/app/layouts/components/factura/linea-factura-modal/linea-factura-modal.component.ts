@@ -22,9 +22,6 @@ export class LineaFacturaModalComponent {
     private formBuilder: FormBuilder,
     public bsModalRef: BsModalRef,
     private obraService: ObraService,
-    private elementRef: ElementRef,
-    private facturaService: FacturaService,
-    private clienteService: ClienteService,
     private lineaFacturaService: LineaFacturaService
   ) {
     this.newLineaFactura = this.formBuilder.group({
@@ -73,7 +70,6 @@ export class LineaFacturaModalComponent {
       if(this.isUpdate){
         this.lineaFacturaService.update(this.lineaFactura.id, lineaFactura).subscribe(
           response =>{
-            console.log('Linea guardada exitosamente:', response);
             this.lineaFacturaService.actualizarLineaFactura();
             this.closeModal();
           },
@@ -84,7 +80,6 @@ export class LineaFacturaModalComponent {
       } else{
         this.lineaFacturaService.save(lineaFactura).subscribe(
           response => {
-            console.log('Factura guardado exitosamente:', response);
             this.lineaFacturaService.actualizarLineaFactura();
             this.closeModal();
           },

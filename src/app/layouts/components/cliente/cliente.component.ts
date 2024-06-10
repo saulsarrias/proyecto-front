@@ -11,7 +11,7 @@ import {ObraService} from "../../../services/obra.service";
 import {FacturaService} from "../../../services/factura.service";
 import {Factura} from "../../../models/factura";
 import {Obra} from "../../../models/obra";
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cliente',
@@ -20,14 +20,22 @@ import {Obra} from "../../../models/obra";
 })
 export class ClienteComponent implements OnInit {
   authenticated = false;
-  message = 'You are not logged';
   clientes: Cliente[] = [];
   facturas: Factura [] = [];
   obras: Obra [] = [];
   bsModalRef!: BsModalRef;
   searchText: any;
   public page = 1;
-  public pageSize = 10;
+  public pageSize = 8;
+
+  images: string[] = [
+    'assets/images/cascada.jpg',
+    'assets/images/jungla.jpg',
+    'assets/images/space.jpg',
+    // Añade aquí todas las imágenes disponibles en tu directorio
+  ];
+
+
   constructor(
     private clienteService: ClienteService,
     private authService: AuthService,
@@ -35,25 +43,36 @@ export class ClienteComponent implements OnInit {
     private router: Router,
     public loadingService: LoadingService,
     private obraService: ObraService,
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private titleService: Title
   ) { }
 
   ngOnInit() {
-    this.loadingService.setLoadingState(true);
+    this.setTitle("Clientes");
+
     this.authService.checkAuthentication().subscribe(isAuthenticated => {
       if (isAuthenticated) {
-        console.log('El usuario está autenticado.');
         this.authenticated = true;
         this.getAllClientes();
         this.clienteService.actualizacionCliente$.subscribe(() => {
           this.getAllClientes();
+
         });
       } else {
-        console.log('El usuario no está autenticado.');
         this.router.navigate(['/']);
       }
     });
   }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
+  getRandomImage(): string {
+    const randomIndex = Math.floor(Math.random() * this.images.length);
+    return this.images[randomIndex];
+  }
+
   getAllClientes() {
     this.loadingService.setLoadingState(true);
     this.clienteService.getAllClientes()
@@ -61,7 +80,6 @@ export class ClienteComponent implements OnInit {
         clientes => {
           this.clientes = clientes;
           this.loadingService.setLoadingState(false);
-          console.log(clientes); // Aquí puedes manipular los clientes recibidos
         },
         error => {
           this.loadingService.setLoadingState(false);
@@ -72,7 +90,6 @@ export class ClienteComponent implements OnInit {
   delete(id: number){
     this.clienteService.delete(id).subscribe(
       response => {
-        console.log('Cliente eliminado exitosamente:', response);
         this.getAllClientes();
       },
       error => {
@@ -112,7 +129,6 @@ export class ClienteComponent implements OnInit {
   getFacturasById(id: number, cliente: Cliente){
     this.facturaService.find(id).subscribe({
       next:factura =>{
-
         this.facturas = factura;
         this.router.navigate(['/facturas'], { state: { facturas_cliente: this.facturas, clienteSeleccionado: cliente } });
       }, error:error => {

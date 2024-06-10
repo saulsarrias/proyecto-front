@@ -6,17 +6,17 @@
   </div>
 <div style="margin-bottom: 50px">
   <div class="row" style="margin-top: 15px; margin-bottom: 15px">
-    <div class="col-lg-4 mt-3" >
+    <div class="col-lg-4 mt-3">
       <h2 style="margin-left: 50px" *ngIf="cliente !== ''">Obras de {{ cliente }}</h2>
       <h2 style="margin-left: 50px" *ngIf="cliente === ''">Obras</h2>
     </div>
     <div class="col-lg-4">
       <nav class="navbar">
-        <input class="search " type="text" name="filter" [(ngModel)]="searchText" placeholder="Busqueda...">
+        <input class="search" type="text" name="filter" [(ngModel)]="searchText" placeholder="Busqueda...">
       </nav>
     </div>
     <div class="col-lg-4 text-center" style="margin-top: 8px">
-        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="clientes.length"></ngb-pagination>
+        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="obras.length"></ngb-pagination>
     </div>
   </div>
 
@@ -31,9 +31,9 @@
         <th (click)="sortingService.sortBy('fecha_fin_prevista')">Fecha Fin <span [innerHTML]="sortingService.getSortIcon('fecha_fin_prevista')"></span></th>
         <th (click)="sortingService.sortBy('presupuesto')">Presupuesto <span [innerHTML]="sortingService.getSortIcon('presupuesto')"></span></th>
         <th>
-          <button type="button" class="btn btn-primary" (click)="showModal()" style="padding: 5px; width: 90px">
+          <button type="button" class="btn btnColor" (click)="showModal()" style="padding: 5px; width: 90px">
             <i class="bi bi-building-add"></i>
-            Nueva Obra</button>
+             Obra</button>
         </th>
       </tr>
       </thead>
@@ -42,9 +42,9 @@
         <td (click)="getClienteById(obra.id_cliente)" style="cursor:pointer;">{{ obra.nombre_cliente}}</td>
         <td>{{ obra.direccion }}</td>
         <td>{{ obra.estado }}</td>
-        <td>{{ obra.fecha_inicio }}</td>
-        <td>{{ obra.fecha_fin_prevista }}</td>
-        <td>{{ obra.presupuesto }}</td>
+        <td>{{ obra.fecha_inicio | date:'dd/MM/yyyy'}}</td>
+        <td>{{ obra.fecha_fin_prevista | date:'dd/MM/yyyy'}}</td>
+        <td>{{ obra.presupuesto | number:'1.0-2' }}€</td>
         <td>
           <div style="display: flex">
             <button class="iconButton editButton" (click)="showModalUpdate(obra)">

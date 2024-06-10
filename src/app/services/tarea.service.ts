@@ -8,7 +8,8 @@ import {Tarea} from "../models/tarea";
   providedIn: 'root'
 })
 export class TareaService {
-  private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
+  private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'https://proyecto-back-tigw4.ondigitalocean.app/api'; // URL del backend API
   private actualizacionTareaSource = new Subject<void>();
 
   actualizacionTareas$ = this.actualizacionTareaSource.asObservable();
