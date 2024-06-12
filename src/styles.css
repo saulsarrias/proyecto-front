@@ -248,7 +248,7 @@ thead th:hover {
 
 
 .button {
-  background-color: #099;
+  background-color: #06A012;
   color: white;
   text-decoration: none;
   border-radius: 60px;
@@ -257,7 +257,7 @@ thead th:hover {
   align-items: center;
   overflow:hidden;
   width: auto;
-  max-width: 32px; /** I'm animating max-width because width needs to be auto, and auto can't be animated **/
+  max-width: 32px;
   -webkit-transition: max-width 0.5s;
   transition: max-width 0.5s;
 }

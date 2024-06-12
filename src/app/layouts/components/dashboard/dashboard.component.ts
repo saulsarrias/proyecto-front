@@ -21,7 +21,7 @@ import { Title } from '@angular/platform-browser';
 export class DashboardComponent implements OnInit{
   searchText: any;
   public page = 1;
-  public pageSize = 10;
+  public pageSize = 8;
   partes: ParteTrabajo [] = [];
   usuarios: Usuario[] = [];
 
@@ -46,10 +46,10 @@ export class DashboardComponent implements OnInit{
     this.setTitle("Inicio");
     this.authService.checkAuthentication().subscribe(isAuthenticated => {
       if (isAuthenticated) {
+        this.loadingService.setLoadingState(true);
         this.authService.isAuthenticatedSubject.next(true);
         forkJoin([this.parteService.find(fechaFormateada), this.apiService.getUsuarios()])
           .subscribe(([partes, usuarios]) => {
-            console.log(usuarios);
             this.partes = partes;
             this.usuarios = usuarios;
             this.addEmpleado();

@@ -12,91 +12,74 @@
     }
 }
 
-.card {
-    width: 280px;
-    height: 250px;
-    background: rgb(255, 255, 255);
-    border-radius: 0.4em;
-    box-shadow: 0.3em 0.3em 0.7em #00000015;
-    transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: rgb(250, 250, 250) 0.2em solid;
-    margin-bottom: 20px;
-    margin-right: 10px;
-}
-
-.card:hover {
-    border: #006fff 0.2em solid;
-}
-.card-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en filas */
-
-    max-width: 1500px; /* Ancho máximo del contenedor de tarjetas */
-}
-
-.download-button {
-  position: relative;
-  border-width: 0;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 4px;
-  z-index: 1;
-  width: 200px;
-}
-
-.download-button .docs {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  min-height: 40px;
-  padding: 0 10px;
-  border-radius: 4px;
-  z-index: 1;
-  background-color: #242a35;
-  border: solid 1px #e8e8e82d;
-  transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-.download-button:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-
-.download {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
+.section {
+  background-color: #FFFFFFcc;
+  width: 100%;
+  min-height: 100vh;
   justify-content: center;
-  max-width: 90%;
-  margin: 0 auto;
-  z-index: -1;
-  border-radius: 4px;
-  transform: translateY(0%);
-  background-color: #01e056;
-  border: solid 1px #01e0572d;
-  transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+  align-items: center;
+  padding: 100px;
+}
+@media screen and(max-width: 768px){
+  .section{
+    padding: 50px;
+  }
 }
 
-.download-button:hover .download {
-  transform: translateY(100%)
+.area-cards{
+  padding: 20px 0;
+  max-width: inherit;
+  margin-left: 10%;
 }
 
-.download svg polyline,.download svg line {
-  animation: docs 1s infinite;
+.card {
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+  border-radius: 15px;
+  width: 350px;
+
 }
 
-@keyframes docs {
-  0% {
-    transform: translateY(0%);
-  }
+.img1 img{
+  height: 200px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  width: 100%;
+}
 
-  50% {
-    transform: translateY(-15%);
-  }
+.img2 img{
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1;
+  width: 140px;
+  height: 140px;
+  margin-top: -80px;
+}
 
-  100% {
-    transform: translateY(0%);
-  }
+.main-text{
+  padding: 30px 0;
+}
+
+.main-text h2{
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 20px;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.main-text p{
+  font-size: 16px;
+  padding: 0 35px;
+}
+
+.line{
+  border-top: 2px dashed #06A012;
+}
+
+.actions svg {
+  font-size: 20px;
+  color: darkcyan;
 }
